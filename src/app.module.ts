@@ -23,7 +23,6 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       }),
     }),
     TypeOrmModule.forRoot({
-      
       type: 'postgres',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
