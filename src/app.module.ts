@@ -22,7 +22,6 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
         DB_NAME: Joi.string().required(),
       }),
     }),
-    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
