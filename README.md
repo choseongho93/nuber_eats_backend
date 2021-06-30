@@ -6,5 +6,5 @@
 3. `npm i --save @nestjs/typeorm typeorm pg`
 4. `npm i --save @nestjs/config`
 5. `npm i cross-env`
-6. `npm i joi` // env 유효설검사 
+6. `npm i joi` // env 유효성검사 
 
