@@ -11,8 +11,8 @@ export class RestaurantService{
         private readonly restaurants: Repository<Restaurant>,
     ) {}
     
-    getAll() : Restaurant[]{
-        return;
+    getAll() : Promise<Restaurant[]>{
+        return this.restaurants.find();
     }
 
 }

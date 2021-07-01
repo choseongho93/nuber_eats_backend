@@ -8,10 +8,10 @@ export class RestaurantResolver {
   constructor(private readonly restaurantService: RestaurantService){}
 
   @Query(retrurns=> [Restaurant])
-  restaurants(@Args('veganOnly') veganOnly: boolean): Restaurant[]{
+  restaurants(): Promise<Restaurant[]>{
     return this.restaurantService.getAll();
   }
-
+  
   @Mutation(returns => Boolean)
   createRestaurant(
     @Args() createRestaurantDto: createRestaurantDto,
