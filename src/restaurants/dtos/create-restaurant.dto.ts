@@ -22,4 +22,5 @@ export class createRestaurantDto{
     @Length(5,10)
     ownerName:string;
   
+    
 }
