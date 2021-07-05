@@ -10,4 +10,24 @@
 
 ## USER CRUD
 1. `nest g mo users` 
+2. `nest g mo common` 
 
+
+
+## User Model:
+
+- id
+- createdAt
+- updatedAt
+
+- email
+- password
+- role(client|owner|delivery)
+
+## User CRUD:
+
+- Create Account
+- Log In
+- See Profile
+- Edit Profile
+- Verify Email
