@@ -8,12 +8,13 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { BeforeInsert, Column, Entity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
+import { IsEmail, IsEnum } from 'class-validator';
 
 enum UserRole {
     Client,
     Owner,
     Delivery,
-} // enum 사용 ([1]=Client,[2]=Owner,[3]=Delivery)
+} // enum 사용 ([0]=Client,[1]=Owner,[2]=Delivery)
 
 registerEnumType(UserRole, { name: 'UserRole' });
 
@@ -23,6 +24,7 @@ registerEnumType(UserRole, { name: 'UserRole' });
 export class User extends CoreEntity {
     @Column() // GraphQL 데코레이션
     @Field(type => String) // DB 데코레이션
+    @IsEmail()
     email: string;
 
     @Column() // GraphQL 데코레이션
@@ -31,6 +33,7 @@ export class User extends CoreEntity {
 
     @Column({ type: 'enum', enum: UserRole }) // GraphQL 데코레이션
     @Field(type => UserRole) // DB 데코레이션
+    @IsEnum(UserRole)
     role: UserRole;
 
     @BeforeInsert()
