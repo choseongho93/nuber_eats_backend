@@ -11,7 +11,13 @@ export class JwtService {
       console.log(options);
     }
 
+    // key 암호화 
     sign(userId: number): string {
        return jwt.sign({ id: userId }, this.options.privateKey);
+    }
+
+    // key 복호화 
+    verify(token: string) {
+      return jwt.verify(token, this.options.privateKey);
     }
 }
