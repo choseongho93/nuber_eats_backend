@@ -8,22 +8,20 @@ import { JwtModuleOptions } from './jwt.interfaces';
 import { JwtMiddleware } from './jwt.middleware';
 import { JwtService } from './jwt.service';
 
-@Module({
-  providers: []
-})
+@Module({})
 @Global()
 export class JwtModule {
-    static forRoot(options: JwtModuleOptions): DynamicModule {
-        return{
-            module: JwtModule,
-            providers: [
-                {
-                    provide: CONFIG_OPTIONS, //provide 변수 이름 
-                    useValue: options, // PRIVATE_KEY 값
-                },
-                JwtService,
-            ],
-            exports: [JwtService]
-        }
-    }
+  static forRoot(options: JwtModuleOptions): DynamicModule {
+    return {
+      module: JwtModule,
+      providers: [
+        {
+          provide: CONFIG_OPTIONS,
+          useValue: options,
+        },
+        JwtService,
+      ],
+      exports: [JwtService],
+    };
+  }
 }

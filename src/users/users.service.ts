@@ -13,7 +13,7 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly users: Repository<User>,
     private readonly jwtService: JwtService,
-    ) {}
+  ) {}
 
   async createAccount({
     email,
@@ -68,5 +68,4 @@ export class UserService {
   async findById(id: number): Promise<User> {
     return this.users.findOne({ id });
   }
-
 }
