@@ -12,7 +12,8 @@ import { Verification } from './entities/verification.entity';
 export class UserService {
     constructor(
         @InjectRepository(User) private readonly users: Repository<User>,
-        @InjectRepository(Verification) private readonly verification: Repository<Verification>,
+        @InjectRepository(Verification)
+        private readonly verifications: Repository<Verification>,
         private readonly jwtService: JwtService,
     ) {}
 
@@ -29,8 +30,10 @@ export class UserService {
                     error: 'There is a user with that email already',
                 };
             }
-            const user = await this.users.save(this.users.create({ email, password, role }));
-            await this.verification.save(this.verification.create({ user }));
+            const user = await this.users.save(
+                this.users.create({ email, password, role }),
+            );
+            await this.verifications.save(this.verifications.create({ user }));
 
             return { ok: true };
         } catch (e) {
@@ -75,16 +78,29 @@ export class UserService {
         return this.users.findOne({ id });
     }
 
-    async editProfile(userId: number, {email, password}: EditProfileInput) {
-      const user = await this.users.findOne(userId);
-      if(email){
-        user.email = email;
-        user.verified = false;
-        await this.verification.save(this.verification.create({ user }));
-      }
-      if(password){
-        user.password = password;
-      }
-      return this.users.save(user);
+    async editProfile(userId: number, { email, password }: EditProfileInput) {
+        const user = await this.users.findOne(userId);
+        if (email) {
+            user.email = email;
+            user.verified = false;
+            await this.verifications.save(this.verifications.create({ user }));
+        }
+        if (password) {
+            user.password = password;
+        }
+        return this.users.save(user);
+    }
+
+    async verifyEmail(code: string): Promise<Boolean> {
+        const verification = await this.verifications.findOne(
+            { code },
+            { relations: ['user'] },
+        );
+        console.log(verification);
+        if(verification){
+            verification.user.verified = true;
+            this.users.save(verification.user);
+        }
+        return false;
     }
 }

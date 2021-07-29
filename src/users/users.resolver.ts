@@ -9,6 +9,7 @@ import {
 import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserPorfileInput, UserProfileOutput } from './dtos/user-profile.dto';
+import { VerifyEmailInput, VerifyEmailOutput } from './dtos/verify-email.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './users.service';
 
@@ -97,6 +98,8 @@ export class UserResolver {
         }
     }
 
-
-
+    @Mutation(returns => VerifyEmailOutput)
+    verifyEmail(@Args('input') { code }: VerifyEmailInput){
+        this.usersService.verifyEmail(code);
+    }
 }
