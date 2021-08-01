@@ -27,7 +27,7 @@ export class User extends CoreEntity {
     @IsEmail()
     email: string;
 
-    @Column() // GraphQL 데코레이션
+    @Column({ select: false }) // GraphQL 데코레이션
     @Field(type => String) // DB 데코레이션
     password: string;
 
@@ -43,14 +43,16 @@ export class User extends CoreEntity {
     @BeforeInsert()
     @BeforeUpdate()
     async hashPassword(): Promise<void> {
-        try {
-            this.password = await bcrypt.hash(this.password, 10);
-        } catch (e) {
-            console.log(e);
-            throw new InternalServerErrorException();
+        if(this.password){
+            try {
+                this.password = await bcrypt.hash(this.password, 10);
+            } catch (e) {
+                console.log(e);
+                throw new InternalServerErrorException();
+            }
         }
     }
-
+    
     async checkPassword(aPassword: string): Promise<boolean> {
         try {
             const ok = await bcrypt.compare(aPassword, this.password);
