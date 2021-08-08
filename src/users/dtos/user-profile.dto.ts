@@ -4,7 +4,7 @@ import { User } from "../entities/user.entity";
 
 
 @ArgsType()
-export class UserPorfileInput {
+export class UserProfileInput {
     @Field(type=> Number )
     userId : number
 }

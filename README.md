@@ -7,13 +7,18 @@
 4. `npm i --save @nestjs/config`
 5. `npm i cross-env`
 6. `npm i joi` // env 유효성검사 
-6. `npm i bcrypt` // hash
-6. `npm i @types/bcrypt --dev-only`
+7. `npm i bcrypt` // hash
+8. `npm i @types/bcrypt --dev-only`
+9. `npm i uuid`
+10. `npm i jsonwebtoken`
+11. `npm i bcrypt`
+12. `npm i got` // curl
+13. `npm i form-data` // form data 
+
 
 ## USER CRUD
 1. `nest g mo users` 
 2. `nest g mo common` 
-
 
 
 ## User Model:
