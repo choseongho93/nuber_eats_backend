@@ -15,9 +15,9 @@ export class MailService {
   private async sendEmail(subject: string, content: string) {
     const form = new FormData();
     form.append('from', `Excited User <mailgun@${this.options.domain}>`);
-    form.append('to', `nico@nomadcoders.co`);
+    form.append('to', `wmdpa31@naver.com`);
     form.append('subject', subject);
-    form.append('template', 'verify-email');
+    form.append('template', 'vertify-email');
     form.append('v:code', 'asasas');
     form.append('v:username', 'nico!!!');
     
