@@ -80,7 +80,7 @@ describe('UserService', () => {
     });
 
     it('should create a new user', async ()=> {
-      usersRepository.findOne.mockResolvedValue(undefined);
+      usersRepository.findOne.mockRejectedValue(undefined);
       usersRepository.create.mockReturnValue(createAccountArgs);
       await service.createAccount(createAccountArgs);
       expect(usersRepository.create).toHaveBeenCalledTimes(1);
