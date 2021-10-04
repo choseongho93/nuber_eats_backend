@@ -62,13 +62,16 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
+  // 계정 생성 TDD
   describe('createAccount', () => {
+    // 생성할 데이터 Arguments
     const createAccountArgs = {
       email: 'bs@email.com',
       password: 'bs.password',
       role: 0,
     };
 
+    // 유저 정보가 이미 존재할때
     it('should fail if user exists', async () => {
       usersRepository.findOne.mockResolvedValue({
         id: 1,
@@ -81,6 +84,7 @@ describe('UserService', () => {
       });
     });
 
+    // 유저 계정 생성할 때 (함수 몇번 호출되고 Args가가 맞는지 체크)
     it('should create a new user', async () => {
       usersRepository.findOne.mockResolvedValue(undefined);
       usersRepository.create.mockReturnValue(createAccountArgs);
@@ -117,6 +121,13 @@ describe('UserService', () => {
       );
       expect(result).toEqual({ ok: true });
     });
+
+    // 유저 계정 생성할때 findone할때 에러가 발생했는데 try catch로 캐치로 빠지는지 체크
+    it('should fail on exception', async () => {
+      usersRepository.findOne.mockRejectedValue(new Error());
+      const result = await service.createAccount(createAccountArgs);
+      expect(result).toEqual({ ok: false, error:"Couldn't create account"});
+    })
   });
 
   it.todo('login');
